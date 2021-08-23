@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour
 {
-    [Header("Reference")]
-    [SerializeField] private Text _textObject;
-
     [Header("Interaction Settings")]
     [SerializeField] private LayerMask interactableObjectsMask;
     [SerializeField] private float interactionMaxDistance;
@@ -25,21 +22,23 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit,  interactionMaxDistance, interactableObjectsMask))
+        if(Physics.Raycast(ray, out hit, interactionMaxDistance, interactableObjectsMask))
         {
-            _textObject.gameObject.SetActive(true);
+            UserInterfaceManager.Instance.UpdateInteractionText(hit.collider.GetComponent<PlayerInteractable>().DisplayMessage);
             isInteractable = true;
         }
         else
         {
-            _textObject.gameObject.SetActive(false);
+            UserInterfaceManager.Instance.UpdateInteractionText("");
             isInteractable = false;
         }
 
         if(isInteractable && Input.GetKeyDown(KeyCode.E))
         {
+            // TODO optimize reference
             hit.collider.GetComponent<PlayerInteractable>().Interact(_playerController);
         }
 
     }
+
 }
