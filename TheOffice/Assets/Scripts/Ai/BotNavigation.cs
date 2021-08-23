@@ -39,5 +39,5 @@ public class BotNavigation : MonoBehaviour
     }
 
     public void GoToBase() => _currentTarget = baseTransform;
-    public void FollowPlayer() => _currentTarget = followTransform;
+    public void GoToDestination() => _currentTarget = followTransform;
 }

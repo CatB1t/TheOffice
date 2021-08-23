@@ -24,7 +24,7 @@ public class Boss : MonoBehaviour
     {
         while (true)
         {
-            _botNavigation.FollowPlayer();
+            _botNavigation.GoToDestination();
             _seekPlayer.IsSeeking = true;
             yield return new WaitForSeconds(timeToLookForPlayer);
             _botNavigation.GoToBase();
