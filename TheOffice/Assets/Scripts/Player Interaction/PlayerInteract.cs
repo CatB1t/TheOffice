@@ -10,7 +10,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float interactionMaxDistance;
 
     private PlayerController _playerController;
-    bool isInteractable = false;
+    bool foundInteractableObject = false;
 
     private void Start()
     {
@@ -21,22 +21,30 @@ public class PlayerInteract : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
+        PlayerInteractable cachedReference;
 
-        if(Physics.Raycast(ray, out hit, interactionMaxDistance, interactableObjectsMask))
+        if(Physics.Raycast(ray, out hit, interactionMaxDistance, interactableObjectsMask) && hit.collider.GetComponent<PlayerInteractable>().IsValid)
         {
-            UserInterfaceManager.Instance.UpdateInteractionText(hit.collider.GetComponent<PlayerInteractable>().DisplayMessage);
-            isInteractable = true;
+            cachedReference = hit.collider.GetComponent<PlayerInteractable>();
+
+            if(cachedReference.IsValid)
+            { 
+                UserInterfaceManager.Instance.UpdateInteractionText(cachedReference.DisplayMessage);
+                foundInteractableObject = true;
+            }
+
         }
         else
         {
             UserInterfaceManager.Instance.UpdateInteractionText("");
-            isInteractable = false;
+            foundInteractableObject = false;
         }
 
-        if(isInteractable && Input.GetKeyDown(KeyCode.E))
+        if(foundInteractableObject && Input.GetKeyDown(KeyCode.E))
         {
             // TODO optimize reference
             hit.collider.GetComponent<PlayerInteractable>().Interact(_playerController);
+            Debug.Log("Interacting");
         }
 
     }
