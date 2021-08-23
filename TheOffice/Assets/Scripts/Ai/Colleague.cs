@@ -7,9 +7,11 @@ public class Colleague : MonoBehaviour
     [Header("Colleague Setttings")]
     [SerializeField] private float timeOnDesk = 10f;
     [SerializeField] private float timeOutOfDesk = 3f;
+    [SerializeField] LayerMask botInteractableMask;
 
     private BotNavigation _botNavigation;
     private SeekPlayer _seekPlayer;
+    private bool _interacted = false;
 
     void Start()
     {
@@ -20,6 +22,25 @@ public class Colleague : MonoBehaviour
             StartCoroutine(PatrolAndSeek());
         else
             StartCoroutine(Patrol());
+
+    }
+
+    private void Update()
+    {
+        if(!_interacted)
+            LookForInteraction();
+    }
+
+    void LookForInteraction()
+    {
+        Collider[] list = Physics.OverlapSphere(transform.position, 2f, botInteractableMask);
+        BotInteractable scriptRef;
+
+        if (list.Length > 0) { 
+            scriptRef = list[0].GetComponent<BotInteractable>();
+            scriptRef.Interact(_botNavigation);
+            _interacted = true;
+        }
 
     }
 

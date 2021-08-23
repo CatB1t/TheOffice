@@ -4,10 +4,10 @@ public abstract class PIDestrutable : PlayerInteractable
 {
     public override void Interact(PlayerController player)
     {
-        if (_isInteractable)
+        if (base.IsValid)
         {
             Destruct();
-            base._isInteractable = false;
+            base.SetInteractable(false);
         }
     }
 
