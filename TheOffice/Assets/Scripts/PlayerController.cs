@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     Vector3 velocity;
 
+    bool canMoveAround = true;
+    private bool _playerCanBeCaught = true;
+
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -27,7 +30,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MouseLook();
+        Move();
+    }
 
+    private void Move()
+    {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -64,6 +71,25 @@ public class PlayerController : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    private Vector3 positionBeforeSit;
+
+    public void SitOnChair(Vector3 seatPoint)
+    {
+        _characterController.enabled = false;
+        canMoveAround = false;
+        positionBeforeSit = transform.position;
+        transform.position = seatPoint;
+        _playerCanBeCaught = false;
+    }
+
+    public void GetUpFromChair()
+    {
+        transform.position = positionBeforeSit;
+        canMoveAround = true;
+        _characterController.enabled = true;
+        _playerCanBeCaught = true;
     }
 
 }
