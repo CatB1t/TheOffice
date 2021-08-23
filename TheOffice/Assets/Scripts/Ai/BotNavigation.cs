@@ -24,7 +24,7 @@ public class BotNavigation : MonoBehaviour
     void Update()
     {
         RotateTowardDestination();
-        _navMeshAgent.destination = followTransform.position;
+        _navMeshAgent.destination = _currentTarget.position;
     }
 
     void RotateTowardDestination()
