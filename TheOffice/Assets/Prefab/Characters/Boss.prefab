@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2bf174b709e033b4baf1e7741ae70b25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -133,10 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8135b3f5a8c8747b9b6b5bbd5e9390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerFollow: {fileID: 0}
-  office: {fileID: 0}
-  viewingAngle: 45
-  distanceFromPlayer: 3
   timeToLookForPlayer: 10
   timeOnBreak: 30
 --- !u!1 &5311217372703131697
@@ -199,7 +195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 92d713494ca0c9749958dde990618e63, type: 2}
+  - {fileID: 2100000, guid: 3c049f7e2d90aa740932af7c08cdc0fd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
