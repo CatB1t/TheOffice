@@ -31,11 +31,19 @@ public class SeekPlayer : MonoBehaviour
   
     bool IsPlayerInSight()
     {
-        float angle = Vector3.Angle(transform.forward, player.position - transform.position);
+        Vector3 direction = player.position - transform.position;
+        float angle = Vector3.Angle(transform.forward, direction);
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (angle <= viewingAngle && viewingAngle >= -viewingAngle && distance < distanceFromPlayer)
-            return true;
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, direction, out hit, distanceFromPlayer))
+            { 
+                if(hit.collider.CompareTag("Player"))
+                    return true;
+            }
+        }
 
         return false;
     }
