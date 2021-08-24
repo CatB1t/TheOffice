@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(BotAnimationController))]
 public class BotNavigation : MonoBehaviour
 {
     [Header("References")]
@@ -10,6 +10,7 @@ public class BotNavigation : MonoBehaviour
 
     private NavMeshAgent _navMeshAgent;
     private Transform _currentTarget;
+    private BotAnimationController _botAnimator;
 
     private void Awake()
     {
@@ -19,12 +20,14 @@ public class BotNavigation : MonoBehaviour
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _botAnimator = GetComponent<BotAnimationController>();
     }
 
     void Update()
     {
         RotateTowardDestination();
         _navMeshAgent.destination = _currentTarget.position;
+        _botAnimator.UpdatePlayerSpeed(_navMeshAgent.velocity.magnitude/_navMeshAgent.speed);
     }
 
     void RotateTowardDestination()
@@ -40,4 +43,14 @@ public class BotNavigation : MonoBehaviour
 
     public void GoToBase() => _currentTarget = baseTransform;
     public void GoToDestination() => _currentTarget = followTransform;
+
+    public void SitOnChair(Vector3 sitPoint)
+    {
+        // Logic
+        _botAnimator.SitOnChair(true);
+    }
+    public void StepOutOfChair()
+    {
+        _botAnimator.SitOnChair(false);
+    }
 }
