@@ -9,10 +9,13 @@ public class BotAnimationController : MonoBehaviour
         _botAnimator.SetBool("Sit", value);
     }
 
-    private float lastSpeed; 
-
     public void UpdatePlayerSpeed(float value)
     {
         _botAnimator.SetFloat("Speed", value);
+    }
+
+    public void GoChaos()
+    {
+        _botAnimator.SetBool("Chaos", true);
     }
 }

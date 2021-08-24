@@ -5,8 +5,8 @@ public abstract class BotInteractable : Interactable
    public override void Interact(BotNavigation bot)
     {
         if(base.IsValid)
-            BotInteract();
+            BotInteract(bot);
     }
 
-    protected virtual void BotInteract() {}
+    protected virtual void BotInteract(BotNavigation bot) {}
 }

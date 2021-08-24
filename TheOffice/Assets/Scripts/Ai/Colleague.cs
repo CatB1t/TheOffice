@@ -33,7 +33,11 @@ public class Colleague : MonoBehaviour
 
     void LookForInteraction()
     {
-        Collider[] list = Physics.OverlapSphere(transform.position, 2f, botInteractableMask);
+        // TODO update this!!!!!!!
+        // Interaction should happen only at end points of navigation
+        // use events with BotNavigation
+
+        Collider[] list = Physics.OverlapSphere(transform.position, 1f, botInteractableMask);
         BotInteractable scriptRef;
 
         if (list.Length > 0) { 
