@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3111745979949207962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752444092781768982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccea3fcc35ad6b41977b937671619e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  viewingAngle: 45
+  distanceFromPlayer: 3
+--- !u!1001 &868129506156312154
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99988294
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.015303703
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 1.754
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683658, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467568410635683660, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_Name
+      value: Snitcher Bot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+--- !u!1 &1752444092781768982 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1467568410635683660, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+  m_PrefabInstance: {fileID: 868129506156312154}
+  m_PrefabAsset: {fileID: 0}
