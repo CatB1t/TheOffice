@@ -101,12 +101,11 @@ public class BotNavigation : MonoBehaviour
             {
                 if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.sqrMagnitude == 0f)
                 {
-                    // Done
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
 }
