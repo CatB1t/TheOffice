@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class InteractableStatus : MonoBehaviour
 {
-    public bool _isInteractable = true;
-    public bool _isInUse = false;
+    [HideInInspector] public bool _isInteractable = true;
+    [HideInInspector] public bool _isInUse = false;
 }
