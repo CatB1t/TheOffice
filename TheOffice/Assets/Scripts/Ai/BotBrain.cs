@@ -119,7 +119,8 @@ public class BotBrain : MonoBehaviour
         BotInteractable scriptRef;
 
         if (list.Length > 0) 
-        { 
+        {
+            Debug.Log(list[0].name);
             scriptRef = list[0].GetComponent<BotInteractable>();
             scriptRef.Interact(this);
             _interacted = true;

@@ -13,6 +13,11 @@ public class Interactable : MonoBehaviour
         _status = GetComponent<InteractableStatus>();
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     virtual public void Interact(PlayerController controller)
     {
 #if UNITY_EDITOR

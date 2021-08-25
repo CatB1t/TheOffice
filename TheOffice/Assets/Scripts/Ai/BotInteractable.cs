@@ -9,8 +9,10 @@ public abstract class BotInteractable : Interactable
     { 
 
         Debug.Log("i'm Bot john tryna interact");
+
         if (base.IsValid)
         {
+
             if (_botInteracting == null)
             {
                 _botInteracting = bot;
@@ -21,8 +23,9 @@ public abstract class BotInteractable : Interactable
                 _botInteracting = null;
                 base.SetInUse(false);
             }
-            //else if(bot != _botInteracting)
-            //   return;
+            else if(bot != _botInteracting)
+               return;
+
             BotInteract(bot);
         }
         else if(!base.IsValid && !base.IsInUse)
