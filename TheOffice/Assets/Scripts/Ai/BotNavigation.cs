@@ -91,4 +91,22 @@ public class BotNavigation : MonoBehaviour
         _navMeshAgent.speed = 4f;
         _botAnimator.GoChaos();
     }
+
+
+    public bool IsPending()
+    {
+        if (!_navMeshAgent.pathPending)
+        {
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            {
+                if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.sqrMagnitude == 0f)
+                {
+                    // Done
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

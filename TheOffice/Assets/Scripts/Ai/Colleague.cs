@@ -1,7 +1,7 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
+
+// TODO maybe rename to BotBrain?
 public class Colleague : MonoBehaviour
 {
     [Header("Colleague Setttings")]
@@ -11,69 +11,73 @@ public class Colleague : MonoBehaviour
 
     private BotNavigation _botNavigation;
     private SeekPlayer _seekPlayer;
+
     private bool _interacted = false;
+
+    #region Patrolling 
+    private bool _isCalled = false;
+    private bool _currentFlag = true;
+    private float _timeOnHold = 0;
+    private float _timeToWaitAfterDestination = 0;
+    #endregion
 
     void Start()
     {
         _botNavigation = GetComponent<BotNavigation>();
         _seekPlayer = GetComponent<SeekPlayer>(); // TODO this is not right to do
 
-        if(_seekPlayer)
-            StartCoroutine(PatrolAndSeek());
-        else
-            StartCoroutine(Patrol());
-
+        GoToNextDestination();
     }
 
     private void Update()
     {
-        if(!_interacted)
-            LookForInteraction();
+        // TODO, maybe there's a way to refactor this?
+        if (!_botNavigation.IsPending() && !_isCalled)
+        {
+            Debug.Log("Reached destination");
+            _isCalled = true;
+            if (!_interacted)
+                LookForInteraction();
+        }
+
+        if(_isCalled)
+        {
+            _timeOnHold += Time.deltaTime;
+            if(_timeOnHold > _timeToWaitAfterDestination)
+            {
+                _isCalled = false;
+                _timeOnHold = 0;
+                GoToNextDestination();
+            }
+        }
+    }
+
+    private void GoToNextDestination()
+    {
+        if(_currentFlag)
+        {
+            _botNavigation.GoToBase();
+            _timeToWaitAfterDestination = timeOnDesk;
+        }
+        else
+        {
+            _botNavigation.GoToDestination();
+            _timeToWaitAfterDestination = timeOutOfDesk;
+        }
+
+        _currentFlag = !_currentFlag;
     }
 
     void LookForInteraction()
     {
-        // TODO update this!!!!!!!
-        // Interaction should happen only at end points of navigation
-        // use events with BotNavigation
-
         Collider[] list = Physics.OverlapSphere(transform.position, 1f, botInteractableMask);
         BotInteractable scriptRef;
 
-        if (list.Length > 0) { 
+        if (list.Length > 0) 
+        { 
             scriptRef = list[0].GetComponent<BotInteractable>();
             scriptRef.Interact(_botNavigation);
             _interacted = true;
         }
-
     }
-
-    IEnumerator Patrol()
-    {
-        while (true)
-        {
-            // TODO optimize
-            _botNavigation.GoToBase();
-            yield return new WaitForSeconds(timeOnDesk);
-            _botNavigation.GoToDestination();
-            // TODO optimize
-            yield return new WaitForSeconds(timeOutOfDesk);
-        }
-    }
-
-    IEnumerator PatrolAndSeek()
-    {
-        while (true)
-        {
-            // TODO optimize
-            _botNavigation.GoToBase();
-            _seekPlayer.IsSeeking = false;
-            yield return new WaitForSeconds(timeOnDesk);
-            _seekPlayer.IsSeeking = true;
-            _botNavigation.GoToDestination();
-            // TODO optimize
-            yield return new WaitForSeconds(timeOutOfDesk);
-        }
-    }
-
 }

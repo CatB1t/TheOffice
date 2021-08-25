@@ -19,12 +19,6 @@ public class BotsManager : MonoBehaviour
         }
     }
 
-    // 1. Keep track of spawened bots
     [SerializeField] private List<BotNavigation> botsNavigatinInScene;
-    // 2. Keep track of chaos'ed bots
     [SerializeField] private List<BotNavigation> chaosedBots;
-    // 3. Save a list of current Office points
-    [SerializeField] private List<BotNavigation> chairPoints;
-    // 4. Save a list of current activities 
-    [SerializeField] private List<BotNavigation> activitiesPoints;
 }
