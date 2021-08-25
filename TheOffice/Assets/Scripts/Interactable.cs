@@ -4,6 +4,8 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public bool IsValid { get { return _status._isInteractable;  } }
+    public bool IsInUse { get { return _status._isInUse; } }
+
     private InteractableStatus _status;
 
     public void Awake()
@@ -26,4 +28,5 @@ public class Interactable : MonoBehaviour
     }
 
     protected void SetInteractable(bool value) => _status._isInteractable = value;
+    protected void SetInUse(bool value) => _status._isInUse = value;
 }

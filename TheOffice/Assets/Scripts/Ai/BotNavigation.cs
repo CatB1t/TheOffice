@@ -40,7 +40,9 @@ public class BotNavigation : MonoBehaviour
             return;
 
         RotateTowardDestination();
-        _navMeshAgent.SetDestination(_currentTarget);
+
+        if(!_isChaos)
+            _navMeshAgent.SetDestination(_currentTarget);
 
         _botAnimator.UpdatePlayerSpeed(_navMeshAgent.velocity.magnitude/_navMeshAgent.speed);
     }
@@ -48,7 +50,7 @@ public class BotNavigation : MonoBehaviour
     void RotateTowardDestination()
     {
         // TODO Understand this
-        Vector3 lookPos = _navMeshAgent.steeringTarget - transform.position;
+        Vector3 lookPos = _navMeshAgent.destination - transform.position;
         lookPos.y = 0;
         if (lookPos.sqrMagnitude < 0.001f)
             return;
@@ -64,8 +66,7 @@ public class BotNavigation : MonoBehaviour
     public void SitOnChair(Vector3 sitPoint, Quaternion rotation)
     {
         // Logic
-        _overrideNavControl = true;
-        _navMeshAgent.enabled = false;
+        DisableNavMesh();
 
         _lastPosition = transform.position;
         _lastRotation = transform.rotation;
@@ -75,9 +76,16 @@ public class BotNavigation : MonoBehaviour
         transform.position = sitPoint;
         transform.rotation = rotation;
 
-        StartCoroutine(StepOutOfChair());
+        StartCoroutine(StepOutOfChair()); // TODO ?
        //botAnimator.UpdatePlayerSpeed(0);
     }
+
+    private void DisableNavMesh()
+    {
+        _overrideNavControl = true;
+        _navMeshAgent.enabled = false;
+    }
+
     IEnumerator StepOutOfChair()
     {
         yield return new WaitForSeconds(1f); // TODO hardcoded
@@ -87,20 +95,28 @@ public class BotNavigation : MonoBehaviour
 
         _navMeshAgent.enabled = true;
         _overrideNavControl = false;
+    }
 
-        GoChaos(); // TODO test
+
+    private IEnumerator GoToRandomPoint()
+    {
+        while(true)
+        {
+            Vector3 position = PickValidRandomSpot(Random.Range(7, 10));
+            _navMeshAgent.SetDestination(position);
+            while (IsPending())
+                yield return null;
+        }
     }
 
     private bool _isChaos = false;
 
     public void GoChaos()
     {
-        // TODO use coroutine to go every time a new random spot
-        basePosition = PickValidRandomSpot(Random.Range(15, 30));
-        followPosition = PickValidRandomSpot(Random.Range(3, 5));
         _isChaos = true;
-        _navMeshAgent.speed = 7f;
+        _navMeshAgent.speed = 6f;
         _botAnimator.GoChaos();
+        StartCoroutine(GoToRandomPoint());
     }
 
     public bool IsPending()

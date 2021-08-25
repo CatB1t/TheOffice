@@ -27,7 +27,7 @@ void Update()
         {
             cachedReference = hit.collider.GetComponent<PlayerInteractable>();
 
-            if(cachedReference.IsValid)
+            if(cachedReference.IsValid && !cachedReference.IsInUse)
             { 
                 UserInterfaceManager.Instance.UpdateInteractionText(cachedReference.DisplayMessage);
                 foundInteractableObject = true;

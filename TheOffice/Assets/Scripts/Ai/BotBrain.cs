@@ -68,8 +68,7 @@ public class BotBrain : MonoBehaviour
             OnReachBase();
         }
 
-        if (!_interacted)
-            LookForInteraction();
+        LookForInteraction();
     }
 
     protected virtual void OnReachBase()
@@ -95,7 +94,10 @@ public class BotBrain : MonoBehaviour
 
     private void GoToNextDestination()
     {
-        if(_currentFlag) // If last position was not base
+        
+        LookForInteraction();
+
+        if (_currentFlag) // If last position was not base
         {
             OnLeaveNotBase();
             _botNavigation.GoToBase();
