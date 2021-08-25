@@ -18,7 +18,7 @@ public class Interactable : MonoBehaviour
 #endif
     }
 
-    virtual public void Interact(BotNavigation bot)
+    virtual public void Interact(BotBrain bot)
     {
 #if UNITY_EDITOR
         Debug.LogError("Interactable object is not implemented");

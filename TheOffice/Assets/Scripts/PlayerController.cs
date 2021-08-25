@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool IsMoving { get { return _currentMovementSpeed > .1;  } }
+
     [SerializeField] private Transform playerCamera;
     [Header("Mouse")]
     [SerializeField] private float mouseSenstivity;
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
+    private float _currentMovementSpeed = 0;
+
     private void Move()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -44,15 +48,17 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey("left shift") && isGrounded)
         {
-            speed = 20f;
+            speed = 8f;
         }
         else
         {
-            speed = 12f;
+            speed = 6f;
         }
+
         //Store user input as a movement vector
         Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 movement = (m_Input.x * transform.right) + (m_Input.z * transform.forward);
+        _currentMovementSpeed = m_Input.sqrMagnitude;
 
         //Apply the movement vector to the current position, which is
         //multiplied by deltaTime and speed for a smooth MovePosition

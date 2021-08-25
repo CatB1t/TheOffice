@@ -113,14 +113,24 @@ public class BotBrain : MonoBehaviour
 
     private void LookForInteraction()
     {
-        Collider[] list = Physics.OverlapSphere(transform.position, 1f, botInteractableMask);
+        Collider[] list = Physics.OverlapSphere(transform.position, 2f, botInteractableMask);
         BotInteractable scriptRef;
 
         if (list.Length > 0) 
         { 
             scriptRef = list[0].GetComponent<BotInteractable>();
-            scriptRef.Interact(_botNavigation);
+            scriptRef.Interact(this);
             _interacted = true;
         }
+    }
+
+    public void GoChaos()
+    {
+        timeToWaitInBase = 0;
+        timeToWaitOutOfBase = 0;
+        _timeToWaitAfterDestination = 0;
+        AudioSource srcRef = GetComponent<AudioSource>();
+        srcRef.Play();
+        _botNavigation.GoChaos();
     }
 }

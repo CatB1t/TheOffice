@@ -13,9 +13,9 @@ public class BIChair : BotInteractable
         trueOffset = (offsetFromOrigin.x * transform.forward) + (offsetFromOrigin.y * transform.up) + (offsetFromOrigin.z * transform.right);
     }
 
-    protected override void BotInteract(BotNavigation bot) 
+    protected override void BotInteract(BotBrain bot) 
     {
-        bot.SitOnChair(transform.position + trueOffset, transform.localRotation);
+        bot.GetComponent<BotNavigation>().SitOnChair(transform.position + trueOffset, transform.localRotation);
     }
 
     private void OnDrawGizmos()

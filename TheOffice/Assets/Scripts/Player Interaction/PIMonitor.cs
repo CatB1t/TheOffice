@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PIMonitor : PIDestrutable
 {
-    protected override void Destruct()
+    protected override void Destruct() 
     {
-        points = 100;
+        // Play VFX
+        // play SFX
     }
 }

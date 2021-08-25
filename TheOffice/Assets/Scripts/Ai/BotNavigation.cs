@@ -10,22 +10,28 @@ public class BotNavigation : MonoBehaviour
     [SerializeField] Transform baseTransform;
 
     private NavMeshAgent _navMeshAgent;
-    private Transform _currentTarget;
+    private Vector3 _currentTarget;
     private BotAnimationController _botAnimator;
 
     private Vector3 _lastPosition;
     private Quaternion _lastRotation;
     private bool _overrideNavControl = false;
 
+    private Vector3 followPosition;
+    private Vector3 basePosition;
+
     private void Awake()
     {
-        _currentTarget = baseTransform;
+        _currentTarget = baseTransform.position;
     }
 
     private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _botAnimator = GetComponent<BotAnimationController>();
+
+        followPosition = followTransform.position;
+        basePosition = baseTransform.position;
     }
 
     void Update()
@@ -34,7 +40,8 @@ public class BotNavigation : MonoBehaviour
             return;
 
         RotateTowardDestination();
-        _navMeshAgent.SetDestination(_currentTarget.position);
+        _navMeshAgent.SetDestination(_currentTarget);
+
         _botAnimator.UpdatePlayerSpeed(_navMeshAgent.velocity.magnitude/_navMeshAgent.speed);
     }
 
@@ -50,8 +57,8 @@ public class BotNavigation : MonoBehaviour
         //transform.rotation = rotation;
     }
 
-    public void GoToBase() => _currentTarget = baseTransform;
-    public void GoToDestination() => _currentTarget = followTransform;
+    public void GoToBase() => _currentTarget = basePosition;
+    public void GoToDestination() => _currentTarget = followPosition;
 
 
     public void SitOnChair(Vector3 sitPoint, Quaternion rotation)
@@ -84,14 +91,17 @@ public class BotNavigation : MonoBehaviour
         GoChaos(); // TODO test
     }
 
+    private bool _isChaos = false;
+
     public void GoChaos()
     {
-        // TODO pick an empty random spot on Map from ChaosManager
-        // go to it and start running in circles
-        _navMeshAgent.speed = 4f;
+        // TODO use coroutine to go every time a new random spot
+        basePosition = PickValidRandomSpot(Random.Range(15, 30));
+        followPosition = PickValidRandomSpot(Random.Range(3, 5));
+        _isChaos = true;
+        _navMeshAgent.speed = 7f;
         _botAnimator.GoChaos();
     }
-
 
     public bool IsPending()
     {
@@ -106,6 +116,19 @@ public class BotNavigation : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private Vector3 PickValidRandomSpot(float radius)
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = hit.position;
+        }
+        return finalPosition;
     }
 
 }
