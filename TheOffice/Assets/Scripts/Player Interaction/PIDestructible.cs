@@ -13,5 +13,5 @@ public abstract class PIDestrutable : PlayerInteractable
         }
     }
 
-    protected virtual void Destruct() {}
+    protected abstract void Destruct();
 }
