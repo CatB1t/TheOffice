@@ -70,6 +70,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snitcher Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 5537960017540828600, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 85ac755262a18c44d9763db4c4a3bcdf, type: 2}
+    - target: {fileID: 5537960017540828600, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_Materials.Array.data[11]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5d65e4dcc19432428ebfe13d441de4c, type: 2}
+    - target: {fileID: 5894978027891440125, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40020f288ae18c54489c4039a33a76fc, type: 3}
 --- !u!1 &1752444092781768982 stripped
