@@ -17,6 +17,7 @@ public class PlayerFootstep : MonoBehaviour
         if (_playerController.IsMoving && !footstepsSource.isPlaying)
         {
             footstepsSource.PlayOneShot(footstepsClips[GetRandomClipIndex()]);
+            footstepsSource.pitch = Random.Range(0.8f, 1f);
         }
     }
 
