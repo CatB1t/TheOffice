@@ -7,6 +7,7 @@ public abstract class PIDestrutable : PlayerInteractable
     {
         if (base.IsValid)
         {
+            NotifyBotsInRange(transform.position, 3f);
             Destruct();
             base.SetInteractable(false);
             GameManager.Instance.UpdateScore(points);
@@ -14,4 +15,15 @@ public abstract class PIDestrutable : PlayerInteractable
     }
 
     protected abstract void Destruct();
+
+    private void NotifyBotsInRange(Vector3 position, float range)
+    {
+        Collider[] hitColliders = new Collider[10];
+        int numColliders = Physics.OverlapSphereNonAlloc(position, range, hitColliders, LayerMask.GetMask("Bots"));
+        for (int i = 0; i < numColliders; i++)
+        {
+            hitColliders[i].GetComponent<BotBrain>().GoChaos();
+        }
+    }
+
 }

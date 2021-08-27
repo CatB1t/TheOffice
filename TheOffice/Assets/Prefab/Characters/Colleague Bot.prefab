@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1467568410635683653}
   - component: {fileID: 1467568410635683659}
   - component: {fileID: 5637244152869591780}
-  m_Layer: 0
+  - component: {fileID: -4917807004311033144}
+  m_Layer: 9
   m_Name: Colleague Bot
   m_TagString: Bot
   m_Icon: {fileID: 0}
@@ -69,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02687d46b93c1d44b81f72c4df9ca613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOnDesk: 10
-  timeOutOfDesk: 3
+  timeToWaitInBase: 10
+  timeToWaitOutOfBase: 3
   botInteractableMask:
     serializedVersion: 2
     m_Bits: 384
@@ -101,6 +102,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _botAnimator: {fileID: 517640848940098439}
+--- !u!136 &-4917807004311033144
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467568410635683660}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7302219547903197140
 PrefabInstance:
   m_ObjectHideFlags: 0

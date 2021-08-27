@@ -94,7 +94,6 @@ public class BotBrain : MonoBehaviour
 
     private void GoToNextDestination()
     {
-        
         LookForInteraction();
 
         if (_currentFlag) // If last position was not base
@@ -115,6 +114,9 @@ public class BotBrain : MonoBehaviour
 
     private void LookForInteraction()
     {
+        if (_chaosModeOn)
+            return;
+
         Collider[] list = Physics.OverlapSphere(transform.position, 2f, botInteractableMask);
         BotInteractable scriptRef;
 
@@ -127,8 +129,12 @@ public class BotBrain : MonoBehaviour
         }
     }
 
+    private bool _chaosModeOn = false;
+
     public void GoChaos()
     {
+        Debug.Log("Called chaos");
+        _chaosModeOn = true;
         timeToWaitInBase = 0;
         timeToWaitOutOfBase = 0;
         _timeToWaitAfterDestination = 0;

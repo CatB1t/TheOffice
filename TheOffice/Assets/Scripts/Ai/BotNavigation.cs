@@ -105,7 +105,7 @@ public class BotNavigation : MonoBehaviour
         while(true)
         {
             Vector3 position = PickValidRandomSpot(Random.Range(7, 10));
-            _navMeshAgent.SetDestination(position);
+            _navMeshAgent.destination = position;
             while (IsPending())
                 yield return null;
         }
