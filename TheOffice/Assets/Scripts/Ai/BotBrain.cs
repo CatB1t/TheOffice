@@ -126,18 +126,23 @@ public class BotBrain : MonoBehaviour
             scriptRef = list[0].GetComponent<BotInteractable>();
             scriptRef.Interact(this);
             _interacted = true;
+            _IsInteracted = !_IsInteracted;
         }
     }
 
     private bool _chaosModeOn = false;
+    private bool _IsInteracted = false;
 
     public void GoChaos()
     {
-        Debug.Log("Called chaos");
+        if (_IsInteracted)
+            LookForInteraction();
+
         _chaosModeOn = true;
         timeToWaitInBase = 0;
         timeToWaitOutOfBase = 0;
         _timeToWaitAfterDestination = 0;
+
         AudioSource srcRef = GetComponent<AudioSource>();
         srcRef.Play();
         _botNavigation.GoChaos();

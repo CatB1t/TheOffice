@@ -50,7 +50,7 @@ public class BotNavigation : MonoBehaviour
     void RotateTowardDestination()
     {
         // TODO Understand this
-        Vector3 lookPos = _navMeshAgent.destination - transform.position;
+        Vector3 lookPos = _navMeshAgent.steeringTarget - transform.position;
         lookPos.y = 0;
         if (lookPos.sqrMagnitude < 0.001f)
             return;
