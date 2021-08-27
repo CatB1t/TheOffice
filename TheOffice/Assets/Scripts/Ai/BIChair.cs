@@ -3,19 +3,27 @@ using UnityEngine;
 public class BIChair : BotInteractable
 {
     [SerializeField] Vector3 offsetFromOrigin;
-    [SerializeField] Quaternion sitRotation;
 
     private Vector3 trueOffset;
+    private bool _isOnChair = false;
 
-    private void Start()
+    private Quaternion _cachedRotation;
+
+    protected override void Start()
     {
-        // TODO still causes bugs?
-        trueOffset = (offsetFromOrigin.x * transform.forward) + (offsetFromOrigin.y * transform.up) + (offsetFromOrigin.z * transform.right);
+        base.Start();
+        trueOffset = (offsetFromOrigin.x * transform.right) + (offsetFromOrigin.y * transform.up) + (offsetFromOrigin.z * transform.forward);
+        _cachedRotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y + 90, transform.localRotation.z);
     }
 
     protected override void BotInteract(BotBrain bot) 
     {
-        bot.GetComponent<BotNavigation>().SitOnChair(transform.position + trueOffset, transform.localRotation);
+        if (!_isOnChair)
+            bot.GetComponent<BotNavigation>().SitOnChair(transform.position + trueOffset, transform.right);
+        else
+            bot.GetComponent<BotNavigation>().StepOutOfChair();
+
+        _isOnChair = !_isOnChair;
     }
 
     private void OnDrawGizmos()

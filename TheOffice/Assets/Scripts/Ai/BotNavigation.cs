@@ -63,10 +63,12 @@ public class BotNavigation : MonoBehaviour
     public void GoToDestination() => _currentTarget = followPosition;
 
 
-    public void SitOnChair(Vector3 sitPoint, Quaternion rotation)
+    public void SitOnChair(Vector3 sitPoint, Vector3 forward)
     {
         // Logic
-        DisableNavMesh();
+        _navMeshAgent.updatePosition = false;
+        _navMeshAgent.updateRotation = false;
+        _overrideNavControl = true;
 
         _lastPosition = transform.position;
         _lastRotation = transform.rotation;
@@ -74,10 +76,9 @@ public class BotNavigation : MonoBehaviour
        _botAnimator.SitOnChair(true);
 
         transform.position = sitPoint;
-        transform.rotation = rotation;
+        transform.forward = forward;
 
-        StartCoroutine(StepOutOfChair()); // TODO ?
-       //botAnimator.UpdatePlayerSpeed(0);
+       _botAnimator.UpdatePlayerSpeed(0);
     }
 
     private void DisableNavMesh()
@@ -86,14 +87,15 @@ public class BotNavigation : MonoBehaviour
         _navMeshAgent.enabled = false;
     }
 
-    IEnumerator StepOutOfChair()
+    public void StepOutOfChair()
     {
-        yield return new WaitForSeconds(1f); // TODO hardcoded
         _botAnimator.SitOnChair(false);
         transform.position = _lastPosition;
         transform.rotation = _lastRotation;
 
-        _navMeshAgent.enabled = true;
+        //_navMeshAgent.enabled = true;
+        _navMeshAgent.updatePosition = true;
+        _navMeshAgent.updateRotation = true;
         _overrideNavControl = false;
     }
 
