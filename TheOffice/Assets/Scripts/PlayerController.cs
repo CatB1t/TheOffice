@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         _playerCanBeCaught = true;
     }
 
-    public void DisableAudio() => audioListener.enabled = true;
+    public void DisableAudio() => audioListener.enabled = false;
     public void EnableAudio() => audioListener.enabled = true;
 
 }

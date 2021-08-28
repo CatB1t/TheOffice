@@ -8,6 +8,7 @@ public class UserInterfaceManager : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private TMP_Text interactionTextReference;
+    [SerializeField] private TMP_Text destroyedCount;
 
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject playerCanvas;
@@ -62,6 +63,11 @@ public class UserInterfaceManager : MonoBehaviour
         _currentActiveCanvas.SetActive(false);
         lostCanvas.SetActive(true);
         _currentActiveCanvas = lostCanvas;
+    }
+
+    public void UpdateDestroyCount(int current, int max)
+    {
+        destroyedCount.text = current + "/" + max;
     }
 
     #region Interaction UI

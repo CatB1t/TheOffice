@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Level Properties")]
     [SerializeField] private int scoreToPassLevel = 500;
-    private int _currentPlayerScore;
+    [SerializeField] private int requiredItemsToDestroy = 10;
+    private int _currentPlayerScore = 0;
+    private int _destroyedItems = 0;
 
     private bool _isPaused = false;
     private static GameManager _instance;
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         currentGameStatus = GameStatus.Playing;
+        UserInterfaceManager.Instance.UpdateDestroyCount(0, requiredItemsToDestroy);
     }
 
     private void Update()
@@ -60,11 +63,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    
     public void UpdateScore(int score)
     {
         _currentPlayerScore += score;
-        if (_currentPlayerScore >= scoreToPassLevel)
+        _destroyedItems++;
+        UserInterfaceManager.Instance.UpdateDestroyCount(_destroyedItems, requiredItemsToDestroy);
+        if (_destroyedItems >= requiredItemsToDestroy)
             UpdateStatus(GameStatus.Won);
     }
 
@@ -139,5 +144,10 @@ public class GameManager : MonoBehaviour
     public bool IsPlaying ()
     {
         return GameManager.Instance.CurrentStatus == GameStatus.Playing;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
