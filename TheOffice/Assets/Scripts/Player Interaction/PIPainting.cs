@@ -13,7 +13,7 @@ public class PIPainting : PIDestrutable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!_hasPlayedSound && !base.IsValid)
+        if(!_hasPlayedSound && !base.IsValid && collision.collider.CompareTag("Ground"))
         {
             GetComponent<AudioSource>().Play();
             _hasPlayedSound = true;
