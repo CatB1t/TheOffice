@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6378153834134988963}
   - component: {fileID: 6378153834134988962}
   - component: {fileID: 919132148629745404}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Destructible Painting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isInteractable: 1
   _isInUse: 0
+  _lastIntereactedBot: {fileID: 0}
 --- !u!114 &6378153834134988962
 MonoBehaviour:
   m_ObjectHideFlags: 0

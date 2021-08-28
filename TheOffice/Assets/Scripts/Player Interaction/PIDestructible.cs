@@ -8,6 +8,7 @@ public abstract class PIDestrutable : PlayerInteractable
         if (base.IsValid)
         {
             NotifyBotsInRange(transform.position, 3f);
+            NotifyLastIntereactedBot();
             Destruct();
             base.SetInteractable(false);
             GameManager.Instance.UpdateScore(points);
@@ -24,6 +25,12 @@ public abstract class PIDestrutable : PlayerInteractable
         {
             hitColliders[i].GetComponent<BotBrain>().GoChaos();
         }
+    }
+
+    private void NotifyLastIntereactedBot()
+    {
+        if (base.LastIntereactedBot)
+            LastIntereactedBot.GoChaos();
     }
 
 }

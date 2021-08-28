@@ -13,8 +13,8 @@ public class BotBrain : MonoBehaviour
     private BotNavigation _botNavigation;
 
     #region Patrolling 
+    [SerializeField] private bool _currentFlag = true;
     private bool _isCalled = false;
-    private bool _currentFlag = true;
     private float _timeOnHold = 0;
     private float _timeToWaitAfterDestination = 0;
     #endregion
@@ -121,15 +121,20 @@ public class BotBrain : MonoBehaviour
         if (_chaosModeOn || !shouldInteractOnReach)
             return;
 
-        Collider[] list = new Collider[1];
+        Collider[] list = new Collider[3];
         int num = Physics.OverlapSphereNonAlloc(transform.position, 2f, list, botInteractableMask);
         BotInteractable scriptRef;
+        BotInteractable interactedRef = null;
 
-        if (num > 0) 
+        for(int i =0; i < num; i++) 
         {
-            scriptRef = list[0].GetComponent<BotInteractable>();
-            scriptRef.Interact(this);
-            _IsInteracted = !_IsInteracted;
+            scriptRef = list[i].GetComponent<BotInteractable>();
+            if(scriptRef.IsValid)
+            { 
+                scriptRef.Interact(this);
+                interactedRef = scriptRef;
+                _IsInteracted = !_IsInteracted;
+            }
         }
     }
 

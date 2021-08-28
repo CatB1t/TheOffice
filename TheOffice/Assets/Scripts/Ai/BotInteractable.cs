@@ -14,6 +14,7 @@ public abstract class BotInteractable : Interactable
             if (_botInteracting == null)
             {
                 _botInteracting = bot;
+                base.SetLastBot(bot);
                 base.SetInUse(true);
             }
             else if (_botInteracting == bot)

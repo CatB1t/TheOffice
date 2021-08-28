@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1545033543492707154
 Transform:
@@ -4819,12 +4819,12 @@ GameObject:
   - component: {fileID: 1851091613285692097}
   - component: {fileID: 1851091613285692096}
   - component: {fileID: 1851091613285692094}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Water Cooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1367887775951054968
 Transform:
@@ -4833,7 +4833,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851091613285692098}
-  m_LocalRotation: {x: 0.00000003652774, y: 0.70710677, z: 0.00000007867459, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5027,3 +5027,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isInteractable: 1
   _isInUse: 0
+  _lastIntereactedBot: {fileID: 0}

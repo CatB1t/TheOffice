@@ -5,6 +5,7 @@ public class Interactable : MonoBehaviour
 {
     public bool IsValid { get { return _status._isInteractable;  } }
     public bool IsInUse { get { return _status._isInUse; } }
+    protected BotBrain LastIntereactedBot { get { return _status._lastIntereactedBot; } }
 
     private InteractableStatus _status;
 
@@ -32,6 +33,7 @@ public class Interactable : MonoBehaviour
 #endif
     }
 
+    protected void SetLastBot(BotBrain bot) => _status._lastIntereactedBot = bot;
     protected void SetInteractable(bool value) => _status._isInteractable = value;
     protected void SetInUse(bool value) => _status._isInUse = value;
 }
