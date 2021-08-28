@@ -127,7 +127,6 @@ public class BotBrain : MonoBehaviour
 
         if (num > 0) 
         {
-            Debug.Log(list[0].gameObject.name);
             scriptRef = list[0].GetComponent<BotInteractable>();
             scriptRef.Interact(this);
             _IsInteracted = !_IsInteracted;

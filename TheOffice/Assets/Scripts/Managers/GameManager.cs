@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum GameStatus
@@ -37,12 +35,6 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
     }
-    // 4. Talk to update UI 
-    // 5. Make 
-
-    // 1. Make progression manager
-    // 2. Some way to keep track of score
-
 
     public void UpdateScore(int score)
     {
@@ -52,7 +44,11 @@ public class GameManager : MonoBehaviour
             UpdateStatus(GameStatus.Won);
     }
 
-    // 3. Level and game status
+    public void PlayerHasBeenCaught()
+    {
+        UpdateStatus(GameStatus.GameOver);
+    }
+
     private void UpdateStatus(GameStatus status)
     {
         currentGameStatus = status;
@@ -69,6 +65,7 @@ public class GameManager : MonoBehaviour
                 LoadNextLevel();
                 break;
             case GameStatus.GameOver:
+                Debug.Log("Caught player");
                 break;
         }
     }

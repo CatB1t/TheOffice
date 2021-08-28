@@ -10,6 +10,7 @@ public class SeekPlayer : MonoBehaviour
     [Header("Vision settings")]
     [SerializeField] float viewingAngle = 45f;
     [SerializeField] float distanceFromPlayer = 3f;
+    [SerializeField] private LayerMask wallAndPlayerMask;
 
     [SerializeField] private bool _shouldLookForPlayer = false;
 
@@ -21,8 +22,7 @@ public class SeekPlayer : MonoBehaviour
         {
             if (IsPlayerInSight())
             {
-                // TODO use unity event to tell game manager player is caught.
-                Debug.Log("Player caught!");
+                GameManager.Instance.PlayerHasBeenCaught();
             }
         }
     }
@@ -37,10 +37,12 @@ public class SeekPlayer : MonoBehaviour
         if (angle <= viewingAngle && viewingAngle >= -viewingAngle && distance < distanceFromPlayer)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, direction, out hit, distanceFromPlayer))
+            if (Physics.Raycast(transform.position, direction, out hit, distanceFromPlayer, wallAndPlayerMask))
             { 
                 if(hit.collider.CompareTag("Player"))
-                    return true;
+                {
+                    return hit.collider.GetComponent<PlayerController>().CanBeCaught;
+                }
             }
         }
 

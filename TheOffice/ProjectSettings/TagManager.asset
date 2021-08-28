@@ -17,8 +17,8 @@ TagManager:
   - BotInteractable
   - PlayerAndBotInteractable
   - Bots
-  - 
-  - 
+  - Wall
+  - Player
   - 
   - 
   - 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public bool IsMoving { get { return _currentMovementSpeed > .1;  } }
+    public bool CanBeCaught {  get { return _playerCanBeCaught;  } }
 
     [SerializeField] private Transform playerCamera;
     [Header("Mouse")]
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     Vector3 velocity;
 
-    bool canMoveAround = true;
+    private bool canMoveAround = true;
     private bool _playerCanBeCaught = true;
 
     private void Start()
@@ -32,7 +33,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MouseLook();
-        Move();
+        if (canMoveAround)
+            Move();
     }
 
     private float _currentMovementSpeed = 0;
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
         positionBeforeSit = transform.position;
         transform.position = seatPoint;
         _playerCanBeCaught = false;
+        _currentMovementSpeed = 0;
     }
 
     public void GetUpFromChair()
