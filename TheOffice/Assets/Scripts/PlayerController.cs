@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public bool IsMoving { get { return _currentMovementSpeed > .1;  } }
     public bool CanBeCaught {  get { return _playerCanBeCaught;  } }
 
+    [SerializeField] private AudioListener audioListener;
     [SerializeField] private Transform playerCamera;
     [Header("Mouse")]
     [SerializeField] private float mouseSenstivity;
@@ -100,5 +101,8 @@ public class PlayerController : MonoBehaviour
         _characterController.enabled = true;
         _playerCanBeCaught = true;
     }
+
+    public void DisableAudio() => audioListener.enabled = true;
+    public void EnableAudio() => audioListener.enabled = true;
 
 }

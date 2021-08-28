@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameStatus
 {
@@ -12,8 +13,9 @@ public enum GameStatus
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get { return _instance; } }
+    public GameStatus CurrentStatus { get { return currentGameStatus; } }
 
-    [SerializeField] private GameStatus currentGameStatus;   
+    [SerializeField] private GameStatus currentGameStatus;
 
     [Header("References")]
     [SerializeField] private PlayerController _player;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int scoreToPassLevel = 500;
     private int _currentPlayerScore;
 
+    private bool _isPaused = false;
     private static GameManager _instance;
 
     private void Awake()
@@ -35,10 +38,31 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
     }
+    private void Start()
+    {
+        Time.timeScale = 1;
+        currentGameStatus = GameStatus.Playing;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (_isPaused)
+            {
+                Unpause();
+            }
+            else
+            {
+                _isPaused = true;
+                UserInterfaceManager.Instance.ShowPauseCanvas();
+                PauseGame();
+            }
+        }
+    }
 
     public void UpdateScore(int score)
     {
-        Debug.Log("Increased score by " + score);
         _currentPlayerScore += score;
         if (_currentPlayerScore >= scoreToPassLevel)
             UpdateStatus(GameStatus.Won);
@@ -53,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         currentGameStatus = status;
         // Handle different status 
-        switch(currentGameStatus)
+        switch (currentGameStatus)
         {
             case GameStatus.Menu:
                 break;
@@ -62,16 +86,58 @@ public class GameManager : MonoBehaviour
             case GameStatus.Playing:
                 break;
             case GameStatus.Won:
-                LoadNextLevel();
+                {
+                    PauseGame();
+                    UserInterfaceManager.Instance.ShowWonCanvas();
+                }
                 break;
             case GameStatus.GameOver:
-                Debug.Log("Caught player");
+                {
+                    PauseGame();
+                    UserInterfaceManager.Instance.ShowLostCanvas();
+                }
                 break;
         }
     }
 
-    private void LoadNextLevel()
+    public void RestartLevel()
     {
-        Debug.Log("Won level, loading next!");
+        ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UpdateStatus(GameStatus.Playing);
+    }
+
+    private void PauseGame()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0;
+        _player.DisableAudio();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        UserInterfaceManager.Instance.ShowPlayerCanvas();
+        _player.EnableAudio();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void Unpause()
+    {
+        ResumeGame();
+        _isPaused = false;
+    }
+
+    public void LoadNextLevel()
+    {
+        // TODO load next scene in order
+        // SceneManager.LoadScene("");
+    }
+
+    public bool IsPlaying ()
+    {
+        return GameManager.Instance.CurrentStatus == GameStatus.Playing;
     }
 }

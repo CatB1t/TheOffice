@@ -18,7 +18,7 @@ public class SeekPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (_shouldLookForPlayer)
+        if (_shouldLookForPlayer && GameManager.Instance.IsPlaying())
         {
             if (IsPlayerInSight())
             {

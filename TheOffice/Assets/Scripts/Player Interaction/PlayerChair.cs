@@ -8,8 +8,9 @@ public class PlayerChair : PlayerInteractable
     private PlayerController _playerController;
     private bool _playerOnSeat = false;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         base._displayMessage = "Sit";
     }
 
