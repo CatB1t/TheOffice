@@ -8,6 +8,7 @@ public class BotNavigation : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform followTransform;
     [SerializeField] Transform baseTransform;
+    [SerializeField] private bool snapToBaseOnAwake = false;
 
     private NavMeshAgent _navMeshAgent;
     private Vector3 _currentTarget;
@@ -32,6 +33,13 @@ public class BotNavigation : MonoBehaviour
 
         followPosition = followTransform.position;
         basePosition = baseTransform.position;
+
+        if (snapToBaseOnAwake) 
+        {
+            _navMeshAgent.enabled = false;
+            transform.position = basePosition;
+            _navMeshAgent.enabled = true;
+        }
     }
 
     void Update()
@@ -56,7 +64,6 @@ public class BotNavigation : MonoBehaviour
             return;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f);
-        //transform.rotation = rotation;
     }
 
     public void GoToBase() => _currentTarget = basePosition;

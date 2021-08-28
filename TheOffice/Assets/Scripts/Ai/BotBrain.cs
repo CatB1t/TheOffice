@@ -7,10 +7,10 @@ public class BotBrain : MonoBehaviour
     [SerializeField] private float timeToWaitInBase = 10f;
     [SerializeField] private float timeToWaitOutOfBase = 3f;
     [SerializeField] LayerMask botInteractableMask;
+    [SerializeField] bool shouldInteractOnReach = true;
+    [SerializeField] private bool shouldInteractOnAwake = false;
 
     private BotNavigation _botNavigation;
-
-    private bool _interacted = false;
 
     #region Patrolling 
     private bool _isCalled = false;
@@ -22,7 +22,11 @@ public class BotBrain : MonoBehaviour
     protected virtual void Start()
     {
         _botNavigation = GetComponent<BotNavigation>();
+
         GoToNextDestination();
+
+        if(shouldInteractOnAwake)
+            LookForInteraction();
     }
 
     private void Update()
@@ -48,18 +52,18 @@ public class BotBrain : MonoBehaviour
 
     protected virtual void OnLeaveNotBase()
     {
-#if UNITY_EDITOR
+#if false
         Debug.Log("Leaving not base");
 #endif
     }
 
     protected virtual void OnReachDestination()
     {
-#if UNITY_EDITOR
+#if false
         Debug.Log("Reached destination");
 #endif
 
-        if(_currentFlag)
+        if (_currentFlag)
         {
             OnReachNotBase();
         }
@@ -73,21 +77,21 @@ public class BotBrain : MonoBehaviour
 
     protected virtual void OnReachBase()
     {
-#if UNITY_EDITOR
+#if false
         Debug.Log("Reached base");
 #endif
     }
 
     protected virtual void OnReachNotBase()
     {
-#if UNITY_EDITOR
+#if false
         Debug.Log("Reached not base");
 #endif
     }
 
     protected virtual void OnLeaveBase()
     {
-#if UNITY_EDITOR
+#if false
         Debug.Log("Leaving base");
 #endif
     }
@@ -114,18 +118,18 @@ public class BotBrain : MonoBehaviour
 
     private void LookForInteraction()
     {
-        if (_chaosModeOn)
+        if (_chaosModeOn || !shouldInteractOnReach)
             return;
 
-        Collider[] list = Physics.OverlapSphere(transform.position, 2f, botInteractableMask);
+        Collider[] list = new Collider[1];
+        int num = Physics.OverlapSphereNonAlloc(transform.position, 2f, list, botInteractableMask);
         BotInteractable scriptRef;
 
-        if (list.Length > 0) 
+        if (num > 0) 
         {
-            Debug.Log(list[0].name);
+            Debug.Log(list[0].gameObject.name);
             scriptRef = list[0].GetComponent<BotInteractable>();
             scriptRef.Interact(this);
-            _interacted = true;
             _IsInteracted = !_IsInteracted;
         }
     }

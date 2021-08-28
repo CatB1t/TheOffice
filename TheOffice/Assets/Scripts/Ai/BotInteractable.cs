@@ -8,8 +8,6 @@ public abstract class BotInteractable : Interactable
     public override void Interact(BotBrain bot)
     { 
 
-        Debug.Log("i'm Bot john tryna interact");
-
         if (base.IsValid)
         {
 

@@ -11,10 +11,9 @@ public class SeekPlayer : MonoBehaviour
     [SerializeField] float viewingAngle = 45f;
     [SerializeField] float distanceFromPlayer = 3f;
 
-    private bool _shouldLookForPlayer = false;
+    [SerializeField] private bool _shouldLookForPlayer = false;
 
     public bool IsSeeking { get { return _shouldLookForPlayer; } set { _shouldLookForPlayer = value; } }
-
 
     private void Update()
     {
