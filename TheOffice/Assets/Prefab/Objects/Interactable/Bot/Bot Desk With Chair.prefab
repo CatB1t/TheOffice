@@ -1,34 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &6230035030379370480
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6536110693594048402}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5138876, y: 1.705107, z: 3.9409711}
-  m_Center: {x: -0.18162549, y: 0.86348724, z: 0.07521093}
---- !u!208 &6230035030379370481
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6536110693594048402}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.757, y: 0.85300004, z: 1.9700001}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.18200001, y: 0.86300004, z: 0.075}
-  m_TimeToStationary: 0.5
 --- !u!1 &6230035030903257935
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6230035030379370480
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6536110693594048402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5138876, y: 1.705107, z: 3.9409711}
+  m_Center: {x: -0.18162549, y: 0.86348724, z: 0.07521093}
 --- !u!1001 &6230035030652164803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -184,7 +168,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3421828948829784482, guid: 06fa75fa1305ada428db182a4deb1ef9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 06fa75fa1305ada428db182a4deb1ef9, type: 3}
 --- !u!4 &9116404862478726398 stripped
 Transform:

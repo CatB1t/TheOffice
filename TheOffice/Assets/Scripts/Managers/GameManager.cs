@@ -137,8 +137,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        // TODO load next scene in order
-        // SceneManager.LoadScene("");
+        int nextSceneCount = SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextSceneCount < SceneManager.sceneCountInBuildSettings)
+            SceneManager.LoadScene(nextSceneCount);
+        else
+            SceneManager.LoadScene(0);
     }
 
     public bool IsPlaying ()

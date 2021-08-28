@@ -69,9 +69,10 @@ public class BotNavigation : MonoBehaviour
     public void GoToBase() => _currentTarget = basePosition;
     public void GoToDestination() => _currentTarget = followPosition;
 
-
+    private bool _isOnChair = false;
     public void SitOnChair(Vector3 sitPoint, Vector3 forward)
     {
+        _isOnChair = true;
         // Logic
         _navMeshAgent.updatePosition = false;
         _navMeshAgent.updateRotation = false;
@@ -88,19 +89,13 @@ public class BotNavigation : MonoBehaviour
        _botAnimator.UpdatePlayerSpeed(0);
     }
 
-    private void DisableNavMesh()
-    {
-        _overrideNavControl = true;
-        _navMeshAgent.enabled = false;
-    }
-
     public void StepOutOfChair()
     {
+        _isOnChair = false;
         _botAnimator.SitOnChair(false);
         transform.position = _lastPosition;
         transform.rotation = _lastRotation;
 
-        //_navMeshAgent.enabled = true;
         _navMeshAgent.updatePosition = true;
         _navMeshAgent.updateRotation = true;
         _overrideNavControl = false;
@@ -122,6 +117,8 @@ public class BotNavigation : MonoBehaviour
 
     public void GoChaos()
     {
+        if(_isOnChair)
+            StepOutOfChair();
         _isChaos = true;
         _navMeshAgent.speed = 6f;
         _botAnimator.GoChaos();
